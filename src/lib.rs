@@ -34,10 +34,9 @@ impl Sudoku {
     ///The first cell read will be in the top left of the game and the last will be in the bottom right
     pub fn set_board<T: IntoIterator<Item = Cell>>(&mut self, values: T) {
         let iter = values.into_iter();
-        let size = iter.size_hint().1.unwrap_or(0usize);
-        let size = (size as f64).sqrt() as usize;
-        self.size = size;
-        self.board = iter.collect::<Vec<usize>>();
+        self.board = iter.collect();
+        let size = self.board.len();
+        self.size = (size as f64).sqrt() as usize;
     }
 
     ///Gets the empty locations on the board and solves the rest of it recursively.
@@ -48,9 +47,7 @@ impl Sudoku {
 
     fn solve_rec(&mut self, locs: &[Cell]) -> bool {
         let mut ret = false;
-        if !locs.is_empty() {
-            let (loc, locs) = locs.split_first()
-                .expect("No value even though locs isnt empty...hm");
+        if let Some((loc, locs)) = locs.split_first() {
             let loc = *loc;
             let loc_tuple = (self.get_col(loc), self.get_row(loc));
             self.board[loc] = 0;
@@ -132,7 +129,7 @@ impl Sudoku {
 
     ///Returns the board as a vector of Cells.
     ///The format of this vector is read left to right, top to bottom.
-    pub fn get_board(&self) -> Vec<Cell> {
+    pub fn get_board(&self) -> &Vec<Cell> {
         self.get_board_as::<Vec<Cell>>()
     }
 
