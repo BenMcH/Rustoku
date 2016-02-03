@@ -1,0 +1,4 @@
+[package]
+name = "rustoku"
+version = "0.1.0"
+authors = ["Ben McHone <benjamin.mchone@gmail.com>"]
