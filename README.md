@@ -1,3 +1,3 @@
-#Rustoku
+#sudoku-rs
 
-Rustoku is a rust crate used to solve sudoku puzzles!
+Sudoku-rs is a rust crate used to solve sudoku puzzles!
